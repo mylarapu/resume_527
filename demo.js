@@ -5,18 +5,17 @@ xhr.open("GET",file,true);
 xhr.onreadystatechange=function(){
 if( xhr.readyState===4&&xhr.status=="200"){
 callback(xhr.responseText);
-
 }
-
   }
   xhr.send();
-
 }
   //calling function
   push("data.json",function(text){
-     let ind=JSON.parse(text);
+   let ind=JSON.parse(text);
 console.log(ind);
 profile(ind.basics);
+skill(ind.skills);
+edu(ind.education);
 
 }  )
 // for getting through id
@@ -42,4 +41,37 @@ left.appendChild(mail);
 var phone=document.createElement("h1");
 phone.textContent=basic.phone;
 left.appendChild(phone);
+}
+var right=document.createElement("div");
+right.classList.add("right");
+right.textContent="technical skills:"
+right.appendChild(document.createElement("HR"));
+main.appendChild(right);
+function skill(akhila){
+var table=document.createElement("table");
+var row="";
+for(var i=0;i<akhila.length;i++){
+row +="<tr><td>"+akhila[i].name+"</td><td>"+akhila[i].value+"</td></tr>"
+}
+table.innerHTML=row;
+right.appendChild(table);
+}
+function edu(Education){
+  var e1=document.createElement("div");
+  e1.classList.add("Education");
+  e1.textContent="Education details";
+  e1.appendChild(document.createElement("HR"));
+  right.appendChild(e1);
+for(i in Education){
+var e2=document.createElement("h2");
+e2.textContent=Education[i].course;
+var ul=document.createElement("ul");
+for(j in Education[i].collage){
+  var list=document.createElement("li");
+  list.textContent=Education[i].collage[j];
+  ul.appendChild(list);
+    e1.appendChild(e2);
+    e1.appendChild(ul);
+  }
+}
 }
